@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "storygram-db",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
