@@ -53,5 +53,24 @@ class Controller {
       res.send(error) 
     }
   }
+
+  //tampilkan detail postingan
+  static async showDetailPost(req, res) {
+    try {
+      let {profileId, postId} = req.params
+      let data = await Post.findOne({
+        include: 'Tags',
+        where: {
+          id: +postId,
+          ProfileId: +profileId
+        }
+      })
+
+      res.json(data)
+    } catch (error) {
+      console.log(error);
+      res.send(error)
+    }
+  }
 }
 module.exports = Controller;

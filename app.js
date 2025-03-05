@@ -53,13 +53,12 @@ app.post('/profiles/:profileId/add', (req, res) => {
   res.send('Hello World!')
 })
 //tampilkan semua postingan dari user yg login, tampilkan dari yang terbaru
-app.get('/profiles/:profileId/posts', (req, res) => {
-    res.send('Hello World!')
-  })
+// app.get('/profiles/:profileId/posts', (req, res) => {
+//     res.send('Hello World!')
+//   })
+
 //detail postingan
-app.get('/profiles/:profileId/posts/:postId', (req, res) => {
-    res.send('Hello World!')
-  })
+app.get('/profiles/:profileId/posts/:postId', Controller.showDetailPost)
 
 
 
