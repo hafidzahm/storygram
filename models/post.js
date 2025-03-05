@@ -16,6 +16,18 @@ module.exports = (sequelize, DataTypes) => {
         through: 'PostTags'
       })
     }
+
+    static async showAllProfilePosts() {
+      try {
+        let data = await Post.findAll({
+          include: 'Profile'
+        })
+        return data
+      } catch (error) {
+
+        throw error
+      }
+    }
   }
   Post.init({
     titlePost: DataTypes.STRING,

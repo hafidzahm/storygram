@@ -1,4 +1,5 @@
 const express = require('express')
+const Controller = require('./controllers/controller')
 const app = express()
 const port = 3000
 
@@ -6,9 +7,7 @@ app.use(express.urlencoded({extended:true}))
 app.set('view engine', 'ejs')
 // homepage jika sudah login
 // urutkan postingan dari yg paling baru
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-  })
+app.get('/', Controller.showAllProfilePosts)
 
 // jika user belum login
 //redirect ke homepage
