@@ -1,0 +1,5 @@
+npx sequelize model:create --name Post --attributes titlePost:string,picturePost:string,captionPost:string,ProfileId:integer
+npx sequelize model:create --name Profile --attributes name:string,gender:string,age:integer,UserId:integer
+npx sequelize model:create --name Tag --attributes tagName:string
+npx sequelize model:create --name User --attributes username:string,password:string,email:string,role:string
+npx sequelize model:create --name PostTag --attributes TagId:integer,PostId:integer
