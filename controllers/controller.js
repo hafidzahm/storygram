@@ -104,5 +104,55 @@ class Controller {
       res.send(error)
     }
   }
+  static async postAddPostAndTag(req, res) {
+    try {
+      let {profileId} = req.params
+      console.log(profileId);
+      let {titlePost, imagePost, captionPost, tagId} = req.body
+      let postId = await Post.max('id')
+      console.log(postId, '<------ postId');
+      await Post.create({
+        titlePost, 
+        picturePost: imagePost,
+        captionPost,
+        ProfileId: profileId,
+      })
+
+      await PostTag.create({
+        PostId: +postId + 1,
+        TagId: tagId
+      })
+      res.redirect('/')
+    } catch (error) {
+      console.log(error);
+      res.send(error)
+    }
+  }
+  //tampilkan form add post
+  static async showFormAddPost(req, res) {
+    try {
+      let {profileId} = req.params
+      let tags = await Tag.findAll()
+      res.render('form', {profileId, tags})
+    } catch (error) {
+      res.send(error)
+    }
+  }
+  //delete post
+  // static async deletePost(req, res) {
+  //   try {
+  //     let {profileId, postId} = req.params
+  //     await Post.destroy({
+  //       where: {
+  //         ProfileId: profileId,
+  //         id: postId
+  //       }
+  //     })
+  //     res.redirect(`/profiles/${profileId}`)
+  //   } catch (error) {
+  //     res.send(error)
+  //   }
+  // }
+
 }
 module.exports = Controller;
