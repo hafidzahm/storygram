@@ -8,6 +8,7 @@ app.set('view engine', 'ejs')
 // homepage jika sudah login
 // urutkan postingan dari yg paling baru (belum urut)
 app.get('/', Controller.showAllProfilePosts)
+// app.get('/testing', Controller.showAllPostTag)
 
 // jika user belum login
 //redirect ke homepage
@@ -55,6 +56,7 @@ app.post('/profiles/:profileId/add', Controller.postAddPostAndTag)
 
 //detail postingan
 app.get('/profiles/:profileId/posts/:postId', Controller.showDetailPost)
+app.get('/profiles/:profileId/posts/:postId/delete', Controller.deletePost)
 
 
 
