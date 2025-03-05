@@ -109,16 +109,7 @@ class Controller {
       res.send(error);
     }
   }
-  // //tampilkan form add post
-  // static async showFormAddPost(req, res) {
-  //   try {
-  //     let { profileId } = req.params;
-  //     let tags = await Tag.findAll();
-  //     res.render("form", { profileId, tags });
-  //   } catch (error) {
-  //     res.send(error);
-  //   }
-  // }
+
   // delete post
   static async deletePost(req, res) {
     try {
