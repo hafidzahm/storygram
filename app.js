@@ -39,9 +39,7 @@ app.post('/tags/add', (req, res) => {
   })
 
 //tampilkan semua postingan dari tags tsb
-app.get('/tags/:tagsId', (req, res) => {
-    res.send('Hello World!')
-  })
+app.get('/tags/:tagId', Controller.showAllPostByTag)
   
 
 //ke profil user

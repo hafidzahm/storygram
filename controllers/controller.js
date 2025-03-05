@@ -36,5 +36,22 @@ class Controller {
       res.send(error)
     }
   }
+
+  //tampilkan semua postingan dari tags tsb (tagid) 
+  static async showAllPostByTag(req, res) {
+    try {
+      let {tagId} = req.params
+      let data = await Tag.findOne({
+        include: 'Posts',
+        where: {
+          id: tagId
+        }
+      })
+
+      res.json(data)
+    } catch (error) {
+      res.send(error) 
+    }
+  }
 }
 module.exports = Controller;
