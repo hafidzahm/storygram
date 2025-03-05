@@ -45,18 +45,17 @@ app.get('/tags/:tagId', Controller.showAllPostByTag)
 
 //ke profil user
 app.get('/profiles/:profileId', Controller.showProfileAndPostsUser)
+
 //tambah postingan
-//redirect ke homepage
+//redirect ke homepage ('/')
 app.get('/profiles/:profileId/add', Controller.showFormAddPost)
 app.post('/profiles/:profileId/add', Controller.postAddPostAndTag)
-//tampilkan semua postingan dari user yg login, tampilkan dari yang terbaru
-// app.get('/profiles/:profileId/posts', (req, res) => {
-//     res.send('Hello World!')
-//   })
 
 //detail postingan
 app.get('/profiles/:profileId/posts/:postId', Controller.showDetailPost)
+// hapus postingan redirect ke /profiles/:profileId
 app.get('/profiles/:profileId/posts/:postId/delete', Controller.deletePost)
+//edit postingan, redirect ke /profiles/:profileId/posts/:postId/edit
 app.get('/profiles/:profileId/posts/:postId/edit', Controller.showEditForm)
 app.post('/profiles/:profileId/posts/:postId/edit', Controller.postEditForm)
 

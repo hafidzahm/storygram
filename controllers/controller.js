@@ -73,28 +73,7 @@ class Controller {
     }
   }
 
-  // //tambah postingan baru
-  // static async postAddPostAndTag(req, res) {
-  //   try {
-  //     let { profileId } = req.params;
-  //     console.log(profileId);
-  //     let { titlePost, imagePost, captionPost, tagId } = req.body;
-  //     await Post.create({
-  //       titlePost,
-  //       picturePost: imagePost,
-  //       captionPost,
-  //       ProfileId: profileId,
-  //       Tags: {
-  //         TagId: tagId,
-  //       },
-  //     });
-  //     res.redirect("/");
-  //   } catch (error) {
-  //     console.log(error);
-  //     res.send(error);
-  //   }
-  // }
-
+  // tampilkan formulir tambah postingan
   static async showFormAddPost(req, res) {
     try {
       let { profileId } = req.params;
@@ -104,6 +83,8 @@ class Controller {
       res.send(error);
     }
   }
+
+  //kirim data postingan baru
   static async postAddPostAndTag(req, res) {
     try {
       let { profileId } = req.params;
@@ -128,16 +109,16 @@ class Controller {
       res.send(error);
     }
   }
-  //tampilkan form add post
-  static async showFormAddPost(req, res) {
-    try {
-      let { profileId } = req.params;
-      let tags = await Tag.findAll();
-      res.render("form", { profileId, tags });
-    } catch (error) {
-      res.send(error);
-    }
-  }
+  // //tampilkan form add post
+  // static async showFormAddPost(req, res) {
+  //   try {
+  //     let { profileId } = req.params;
+  //     let tags = await Tag.findAll();
+  //     res.render("form", { profileId, tags });
+  //   } catch (error) {
+  //     res.send(error);
+  //   }
+  // }
   // delete post
   static async deletePost(req, res) {
     try {
