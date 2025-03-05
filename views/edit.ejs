@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form method="post" action="/profiles/<%= profileId %>/post/<%= postId %>">
+      <input type=”text” name="titlePost" value="<%= dataPost.titlePost %>"/>
+      <input type=”text” name="imagePost" value="<%= dataPost.picturePost%>" />
+      <input type=”text” name="captionPost" value="<%= dataPost.captionPost %>" /></br>
+      <label for="cars">Tag</label><br/>
+      <select id="cars" name="tagId">
+
+        <% tags.forEach(el => { %>
+
+          <% if (el === dataPost.Tags[0].id) { %>
+            <option value="<%= dataPost.Tags[0].id %>" selected><%= dataPost.Tags[0].tagName %></option>
+          <% } else { %>
+            <option value="<%= el.id %>"><%= el.tagName %> <%= el.id %></option>
+
+            <% } %>
+        <% }) %>
+      </select>
+      <button type="”submit”">Search</button>
+    </form>
+  </body>
+</html>

@@ -162,5 +162,28 @@ class Controller {
       res.send(error);
     }
   }
+
+  // show edit form
+  static async showEditForm(req, res) {
+    try {
+      let { profileId, postId } = req.params;
+      let tags = await Tag.findAll();
+      let data = await Post.findOne({
+        include: "Tags",
+        where: {
+          id: +postId,
+          ProfileId: +profileId,
+        },
+      });
+      let dataPost = data
+      let tagPost = data.Tags
+      // res.json(data.Tags[0].tagName);
+      // res.json(tagPost.map(el => el.id))
+     
+      res.render('edit', {dataPost, tagPost, tags, profileId, postId})
+    } catch (error) {
+      res.send(error);
+    }
+  }
 }
 module.exports = Controller;
