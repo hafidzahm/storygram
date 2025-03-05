@@ -9,5 +9,22 @@ class Controller {
         res.send(error)
     }
   }
+
+  // tampilkan profil user dan postingan user
+  static async showProfileAndPostsUser(req, res) {
+    try {
+      let {profileId} = req.params
+      let data = await Profile.findOne({
+        include: ['Posts', 'User'],
+        where: {
+          id: +profileId
+        },
+      })
+      res.json(data)
+    } catch (error) {
+      console.log(error);
+      throw error
+    }
+  }
 }
 module.exports = Controller;

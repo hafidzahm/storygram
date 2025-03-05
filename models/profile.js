@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       Profile.hasMany(models.Post)
       Profile.belongsTo(models.User, {foreignKey: 'UserId'})
     }
+
+
   }
   Profile.init({
     name: DataTypes.STRING,

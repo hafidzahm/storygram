@@ -6,7 +6,7 @@ const port = 3000
 app.use(express.urlencoded({extended:true}))
 app.set('view engine', 'ejs')
 // homepage jika sudah login
-// urutkan postingan dari yg paling baru
+// urutkan postingan dari yg paling baru (belum urut)
 app.get('/', Controller.showAllProfilePosts)
 
 // jika user belum login
@@ -47,9 +47,7 @@ app.get('/tags/:tagsId', (req, res) => {
   
 
 //ke profil user
-app.get('/profiles/:profileId', (req, res) => {
-  res.send('Hello World!')
-})
+app.get('/profiles/:profileId', Controller.showProfileAndPostsUser)
 //tambah postingan
 //redirect ke homepage
 app.get('/profiles/:profileId/add', (req, res) => {
