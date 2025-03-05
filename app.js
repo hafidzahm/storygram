@@ -27,9 +27,7 @@ app.post('/register', (req, res) => {
   })
 
 //daftar semua tags
-app.get('/tags', (req, res) => {
-    res.send('Hello World!')
-  })
+app.get('/tags', Controller.showAllTag)
 
 //tags baru
 app.get('/tags/add', (req, res) => {

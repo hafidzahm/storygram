@@ -26,5 +26,15 @@ class Controller {
       throw error
     }
   }
+
+  //tampilkan semua tags
+  static async showAllTag(req, res) {
+    try {
+      let data = await Tag.findAll()
+      res.json(data)
+    } catch (error) {
+      res.send(error)
+    }
+  }
 }
 module.exports = Controller;
