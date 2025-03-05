@@ -12,16 +12,14 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   let profile = require('../datas/profile.json').map(el => {
-    el.createdAt = el.updatedAt = new Date()
-    return el
-   })
-   let user = require('../datas/user.json').map(el => {
-    el.createdAt = el.updatedAt = new Date()
-    return el
-   })
-   await queryInterface.bulkInsert('Profiles', profile)
-   await queryInterface.bulkInsert('Users', user)
+
+    let postTag = require('../datas/post-tag.json').map(el => {
+      el.createdAt = el.updatedAt = new Date()
+      return el
+     })
+
+     await queryInterface.bulkInsert('PostTags', postTag)
+
   },
 
   async down (queryInterface, Sequelize) {
@@ -31,7 +29,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Users', null)
-    await queryInterface.bulkDelete('Profiles', null)
+    await queryInterface.bulkDelete('PostTags', null)
+
   }
 };

@@ -29,6 +29,12 @@ module.exports = {
         id: 'id'
       }
     })
+    await queryInterface.addColumn('PostTags', 'createdAt', {
+      type: Sequelize.DATE,
+    })
+    await queryInterface.addColumn('PostTags', 'updatedAt', {
+      type: Sequelize.DATE,
+    })
   },
 
   async down (queryInterface, Sequelize) {
@@ -38,7 +44,8 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-
+    await queryInterface.removeColumn('PostTags', 'createdAt')
+    await queryInterface.removeColumn('PostTags', 'updatedAt')
     await queryInterface.removeColumn('PostTags', 'PostId')
     await queryInterface.removeColumn('PostTags', 'TagId')
     await queryInterface.dropTable('PostTags')
