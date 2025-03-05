@@ -72,5 +72,37 @@ class Controller {
       res.send(error)
     }
   }
+
+  //tambah postingan baru
+  static async postAddPostAndTag(req, res) {
+    try {
+      let {profileId} = req.params
+      console.log(profileId);
+      let {titlePost, imagePost, captionPost, tagId} = req.body
+      await Post.create({
+        titlePost, 
+        picturePost: imagePost,
+        captionPost,
+        ProfileId: profileId,
+        Tags: {
+          "TagId": tagId
+        }
+      })
+      res.redirect('/')
+    } catch (error) {
+      console.log(error);
+      res.send(error)
+    }
+  }
+
+  static async showFormAddPost(req, res) {
+    try {
+      let {profileId} = req.params
+      let tags = await Tag.findAll()
+      res.render('form', {profileId, tags})
+    } catch (error) {
+      res.send(error)
+    }
+  }
 }
 module.exports = Controller;

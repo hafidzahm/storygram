@@ -46,12 +46,8 @@ app.get('/tags/:tagId', Controller.showAllPostByTag)
 app.get('/profiles/:profileId', Controller.showProfileAndPostsUser)
 //tambah postingan
 //redirect ke homepage
-app.get('/profiles/:profileId/add', (req, res) => {
-  res.send('Hello World!')
-})
-app.post('/profiles/:profileId/add', (req, res) => {
-  res.send('Hello World!')
-})
+app.get('/profiles/:profileId/add', Controller.showFormAddPost)
+app.post('/profiles/:profileId/add', Controller.postAddPostAndTag)
 //tampilkan semua postingan dari user yg login, tampilkan dari yang terbaru
 // app.get('/profiles/:profileId/posts', (req, res) => {
 //     res.send('Hello World!')
