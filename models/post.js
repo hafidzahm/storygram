@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     static async showAllProfilePosts() {
       try {
         let data = await Post.findAll({
-          include: 'Profile'
+          include: ['Profile', 'Tags']
         })
         return data
       } catch (error) {
