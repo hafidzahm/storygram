@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="https://unpkg.com/flowbite@1.4.0/dist/flowbite.min.css" rel="stylesheet" />
+    <style>
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Center cards horizontally */
+            gap: 20px; /* Space between cards */
+            max-width: 1200px; /* Max width for the container */
+            margin: 0 auto; /* Center the container */
+        }
+        .card {
+            max-width: 300px; /* Limit card width */
+            flex: 1 1 30%; /* Allow cards to grow and shrink */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="bg-white border-gray-200 dark:bg-gray-900">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="storygram-ai.png" class="h-8" alt="Flowbite Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">StoryGram</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="notes">
+        <section class="bg-white dark:bg-gray-900">
+            <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
+                <a href="#" class="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-blue-700 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800">
+                    <span class="text-xs bg-blue-600 rounded-full text-white px-4 py-1.5 me-3">New</span> 
+                    <span class="text-sm font-medium"> Jadilah member pertama di aplikasi kita</span> 
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- cards -->
+    <div class="card-container">
+        <div class="card max-w-sm rounded overflow-hidden shadow-lg">
+            <img class="w-full" src="madara.jpeg" alt="Sunset in the mountains">
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+                <p class="text-gray-700 text-base">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                </p>
+            </div>
+            <div class="px-6 pt-4 pb-2">
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+            </div>
+        </div>
+
+        <div class="card max-w-sm rounded overflow-hidden shadow-lg">
+            <img class="w-full" src="madara.jpeg" alt="Sunset in the mountains">
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2">The Beautiful Mountains</div>
+                <p class="text-gray-700 text-base">
+                    Explore the breathtaking views of the mountains and enjoy the serenity of nature.
+                </p>
+            </div>
+            <div class="px-6 pt-4 pb-2">
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#nature</span>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#adventure</span>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#landscape</span>
+            </div>
+        </div>
+
+        <div class="card max-w-sm rounded overflow-hidden shadow-lg">
+            <img class="w-full" src="madara.jpeg" alt="Sunset in the mountains">
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2">The Tranquil Lake</div>
+                <p class="text-gray-700 text-base">
+                    A peaceful lake surrounded by lush greenery, perfect for a relaxing getaway.
+                </p>
+            </div>
+            <div class="px-6 pt-4 pb-2">
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#lake</span>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#relaxation</span>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#scenery</span>
+            </div>
+        </div>
+        <div class="card max-w-sm rounded overflow-hidden shadow-lg">
+            <img class="w-full" src="madara.jpeg" alt="Sunset in the mountains">
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2">The Tranquil Lake</div>
+                <p class="text-gray-700 text-base">
+                    A peaceful lake surrounded by lush greenery, perfect for a relaxing getaway.
+                </p>
+            </div>
+            <div class="px-6 pt-4 pb-2">
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#lake</span>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#relaxation</span>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#scenery</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.min.js"></script>
+</body>
+</html>
