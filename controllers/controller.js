@@ -73,27 +73,27 @@ class Controller {
     }
   }
 
-  //tambah postingan baru
-  static async postAddPostAndTag(req, res) {
-    try {
-      let { profileId } = req.params;
-      console.log(profileId);
-      let { titlePost, imagePost, captionPost, tagId } = req.body;
-      await Post.create({
-        titlePost,
-        picturePost: imagePost,
-        captionPost,
-        ProfileId: profileId,
-        Tags: {
-          TagId: tagId,
-        },
-      });
-      res.redirect("/");
-    } catch (error) {
-      console.log(error);
-      res.send(error);
-    }
-  }
+  // //tambah postingan baru
+  // static async postAddPostAndTag(req, res) {
+  //   try {
+  //     let { profileId } = req.params;
+  //     console.log(profileId);
+  //     let { titlePost, imagePost, captionPost, tagId } = req.body;
+  //     await Post.create({
+  //       titlePost,
+  //       picturePost: imagePost,
+  //       captionPost,
+  //       ProfileId: profileId,
+  //       Tags: {
+  //         TagId: tagId,
+  //       },
+  //     });
+  //     res.redirect("/");
+  //   } catch (error) {
+  //     console.log(error);
+  //     res.send(error);
+  //   }
+  // }
 
   static async showFormAddPost(req, res) {
     try {
@@ -177,12 +177,42 @@ class Controller {
       });
       let dataPost = data
       let tagPost = data.Tags
-      // res.json(data.Tags[0].tagName);
-      // res.json(tagPost.map(el => el.id))
      
       res.render('edit', {dataPost, tagPost, tags, profileId, postId})
     } catch (error) {
       res.send(error);
+    }
+  }
+
+  //kirim data yg udh di edit
+  static async postEditForm(req, res) {
+    try {
+
+      let { profileId, postId } = req.params;
+      let { titlePost, imagePost, captionPost, tagId } = req.body;
+
+      console.log(postId, "<------ postId");
+      await Post.update({
+        titlePost,
+        picturePost: imagePost,
+        captionPost
+      }, {
+        where: {
+          ProfileId: profileId,
+          id: postId
+        }
+      });
+
+      await PostTag.update({
+        TagId: tagId,
+      }, {
+        where: {
+          PostId: postId
+        }
+      });
+      res.redirect(`/profiles/${profileId}/posts/${postId}`);
+    } catch (error) {
+      res.send(error)
     }
   }
 }

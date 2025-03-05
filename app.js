@@ -58,6 +58,7 @@ app.post('/profiles/:profileId/add', Controller.postAddPostAndTag)
 app.get('/profiles/:profileId/posts/:postId', Controller.showDetailPost)
 app.get('/profiles/:profileId/posts/:postId/delete', Controller.deletePost)
 app.get('/profiles/:profileId/posts/:postId/edit', Controller.showEditForm)
+app.post('/profiles/:profileId/posts/:postId/edit', Controller.postEditForm)
 
 
 
