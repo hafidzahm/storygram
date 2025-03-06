@@ -1,12 +1,26 @@
 const { Tag, Post, Profile, User, PostTag } = require("../models");
+const {Op} = require('sequelize')
 class Controller {
   // tampilkan semua postingan dari semua user di homepage
   static async showAllProfilePosts(req, res) {
     try {
-      let data = await Post.showAllProfilePosts();
-      console.log(data.map(el => el.toMinutesAgoFormat()),'<----------Implementasi toMinutesAgo()');
-      // res.json(data);
-      res.render('landing', {data})
+      // const { search } = req.query;
+      // let data = await Post.showAllProfilePosts();
+      // console.log(data.map(el => el.toMinutesAgoFormat()),'<----------Implementasi toMinutesAgo()');
+      // // res.json(data);
+      // res.render('landing', {data})
+      const { search } = req.query;
+        let data = await Post.showAllProfilePosts(); 
+
+        if (search) {
+            data = data.filter(post => 
+                post.titlePost.toLowerCase().includes(search.toLowerCase()) ||
+                post.captionPost.toLowerCase().includes(search.toLowerCase()) 
+            );
+        }
+
+        console.log(data.map(el => el.toMinutesAgoFormat()), '<----------Implementasi toMinutesAgo()');
+        res.render('landing', { data }); 
     } catch (error) {
       res.send(error);
     }
