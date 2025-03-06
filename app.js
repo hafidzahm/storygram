@@ -4,6 +4,23 @@ const UserController = require('./controllers/UserController')
 const app = express()
 const port = 3000
 const session = require('express-session')
+const multer = require('multer')
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images')
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().getTime() + '-' + file.originalname)
+  }
+})
+
+const fileFilter = (req, file, cb) => {
+  if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
+    cb(null, true)
+  } else {
+    cb(null, false)
+  }
+}
 
 app.use(express.urlencoded({extended:true}))
 app.set('view engine', 'ejs')
@@ -17,6 +34,9 @@ app.use(session({
      sameSite: true 
     }
 }))
+
+app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('picturePost'))
+
 
 // homepage jika sudah login
 // urutkan postingan dari yg paling baru (belum urut)
