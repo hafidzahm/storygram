@@ -5,6 +5,7 @@ const port = 3000
 
 app.use(express.urlencoded({extended:true}))
 app.set('view engine', 'ejs')
+
 // homepage jika sudah login
 // urutkan postingan dari yg paling baru (belum urut)
 app.get('/', Controller.showAllProfilePosts)
@@ -31,13 +32,9 @@ app.post('/register', (req, res) => {
 app.get('/tags', Controller.showAllTag)
 
 //tags baru
-app.get('/tags/add', (req, res) => {
-    res.send('Hello World!')
-  })
+app.get('/tags/add', Controller.showFormAddTag)
 
-app.post('/tags/add', (req, res) => {
-    res.send('Hello World!')
-  })
+app.post('/tags/add', Controller.postAddTag)
 
 //tampilkan semua postingan dari tags tsb
 app.get('/tags/:tagId', Controller.showAllPostByTag)

@@ -187,5 +187,24 @@ class Controller {
       res.send(error)
     }
   }
+
+  //tampilkan form tambah tag
+  static async showFormAddTag(req, res) {
+    try {
+      res.render('add-tag')
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async postAddTag(req, res) {
+    try {
+      let {tagName} = req.body
+      await Tag.create({tagName})
+      res.redirect('/tags')
+    } catch (error) {
+      res.send(error)
+    }
+  }
 }
 module.exports = Controller;
