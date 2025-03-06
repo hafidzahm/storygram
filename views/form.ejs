@@ -7,9 +7,24 @@
   </head>
   <body>
     <form method="post" action="/profiles/<%= profileId %>/add">
-      <input type=”text” name="titlePost" />
-      <input type='file' name="imagePost" />
+      <label for="">Judul Post</label></br>
+      <input type=”text” name="titlePost" /></br>
+      <p style="color: red;">
+        <% if (error) { %> <%= error.find(el => el.includes("Judul")); %>
+        <% } %>
+      </p>
+      <label for="">Gambar</label></br>
+      <input type='file' name="imagePost" /></br>
+      <p style="color: red;">
+        <% if (error) { %> <%= error.find(el => el.includes("Gambar")); %>
+        <% } %>
+      </p>
+      <label for="">Caption</label></br>
       <input type=”text” name="captionPost" /></br>
+      <p style="color: red;">
+        <% if (error) { %> <%= error.find(el => el.includes("Caption")); %>
+        <% } %>
+      </p>
       <label for="cars">Tag</label><br/>
       <select id="cars" name="tagId">
         <option selected value="">Pilih tag disini</option>

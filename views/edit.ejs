@@ -8,8 +8,20 @@
   <body>
     <form method="post" action="/profiles/<%= profileId %>/posts/<%= postId %>/edit">
       <input type=”text” name="titlePost" value="<%= dataPost.titlePost %>"/>
+      <p style="color: red;">
+        <% if (error) { %> <%= error.find(el => el.includes("Judul")); %>
+        <% } %>
+      </p>
       <input type=”text” name="imagePost" value="<%= dataPost.picturePost%>" />
+      <p style="color: red;">
+        <% if (error) { %> <%= error.find(el => el.includes("Gambar")); %>
+        <% } %>
+      </p>
       <input type=”text” name="captionPost" value="<%= dataPost.captionPost %>" /></br>
+      <p style="color: red;">
+        <% if (error) { %> <%= error.find(el => el.includes("Caption")); %>
+        <% } %>
+      </p>
       <label for="cars">Tag</label><br/>
       <select id="cars" name="tagId">
 

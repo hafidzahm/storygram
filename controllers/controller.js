@@ -87,14 +87,23 @@ class Controller {
   // tampilkan formulir tambah postingan
   static async showFormAddPost(req, res) {
     try {
+      let {error} = req.query
       let { profileId } = req.params;
       let {userId} = req.session
       if (userId) {
         profileId = userId
       }
+      if(error) {
+       error =  error.split(',')
+      } else {
+      error = undefined
+      }
+
+      console.log(error);
       let tags = await Tag.findAll();
-      res.render("form", { profileId, tags });
+      res.render("form", { profileId, tags, error });
     } catch (error) {
+      console.log(error);
       res.send(error);
     }
   }
@@ -124,6 +133,18 @@ class Controller {
       });
       res.redirect("/");
     } catch (error) {
+      let { profileId } = req.params;
+      let {userId} = req.session
+      if (userId) {
+        profileId = userId
+      }
+      if(error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError' || error.name === 'ValidationError') {
+        error = error.errors.map(el => {
+          return el.message
+        })
+
+        return res.redirect(`/profiles/${profileId}/add?error=${error}`)
+      }
       console.log(error);
       res.send(error);
     }
@@ -161,11 +182,18 @@ class Controller {
   // show edit form
   static async showEditForm(req, res) {
     try {
+      let {error} = req.query
       let { profileId, postId } = req.params;
       let {userId} = req.session
       if (userId) {
         profileId = userId
       }
+
+      if(error) {
+        error =  error.split(',')
+       } else {
+       error = undefined
+       }
       let tags = await Tag.findAll();
       let data = await Post.findOne({
         include: "Tags",
@@ -177,8 +205,9 @@ class Controller {
       let dataPost = data
       let tagPost = data.Tags
      
-      res.render('edit', {dataPost, tagPost, tags, profileId, postId})
+      res.render('edit', {dataPost, tagPost, tags, profileId, postId, error})
     } catch (error) {
+     
       res.send(error);
     }
   }
@@ -215,6 +244,18 @@ class Controller {
       });
       res.redirect(`/profiles/${profileId}/posts/${postId}`);
     } catch (error) {
+      let { profileId, postId } = req.params;
+      let {userId} = req.session
+      if (userId) {
+        profileId = userId
+      }
+      if(error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError' || error.name === 'ValidationError') {
+        error = error.errors.map(el => {
+          return el.message
+        })
+
+        return res.redirect(`/profiles/${profileId}/posts/${postId}/edit?error=${error}`)
+      }
       res.send(error)
     }
   }
