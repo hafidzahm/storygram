@@ -11,10 +11,12 @@
 
     <div class="text-center">
         <h1 class="text-3xl font-bold mb-6">Tag List</h1>
+        <a href="/tags/add" class="btn btn-success" style="color: green;">Tambah tag</a>
         <div class="flex flex-wrap justify-center">
             <% data.forEach(tag => { %>
                 <span class="bg-blue-100 text-blue-800 text-lg font-medium mx-2 my-1 px-4 py-2 rounded-md">
-                    <%= tag.tagName %>
+                    <a href="/tags/<%= tag.id %>" class="btn btn-primary"><%= tag.tagName %></a>
+                    
                 </span>             
             <% }) %>
 
