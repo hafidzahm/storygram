@@ -42,8 +42,9 @@ class Controller {
           id: +profileId,
         },
       });
+      console.log(data);
       // res.json(data);
-      res.render('profile', {data})
+      res.render('profile', {data, profileId})
     } catch (error) {
       console.log(error);
       throw error;
