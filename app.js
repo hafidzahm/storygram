@@ -1,16 +1,28 @@
 const express = require('express')
 const Controller = require('./controllers/controller')
+const UserController = require('./controllers/UserController')
 const app = express()
 const port = 3000
+const session = require('express-session')
 
 app.use(express.urlencoded({extended:true}))
 app.set('view engine', 'ejs')
 app.use(express.static('public'));
 
+app.use(session({
+  secret: 'rahasiaa',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+     secure: false,
+     sameSite: true 
+    }
+}))
+
 // homepage jika sudah login
 // urutkan postingan dari yg paling baru (belum urut)
-app.get('/', Controller.showAllProfilePosts)
-// app.get('/testing', Controller.showAllPostTag)
+
+app.get('/testing', UserController.showAllUser)
 
 // belum bang ini aku mau buat di view nya pake yang tadi di html nya
 
@@ -23,20 +35,30 @@ app.get('/', Controller.showAllProfilePosts)
 
 // jika user belum login
 //redirect ke homepage
-app.get('/login', (req, res) => {
-    res.send('Hello World!')
-  })
-app.post('/login', (req, res) => {
-    res.send('Hello World!')
-  })
+app.get('/login', UserController.loginForm)
+app.post('/login', UserController.postLogin)
+
+// logout
+//redirect ke homepage
+app.get('/logout', UserController.postLogout)
+
 //jika user belum punya akun
 //redirect ke halaman login
-app.get('/register', (req, res) => {
-    res.send('Hello World!')
-  })
-app.post('/register', (req, res) => {
-    res.send('Hello World!')
-  })
+app.get('/register', UserController.registerForm)
+app.post('/register', UserController.postRegister)
+
+//middleware zone
+app.use(function (req, res, next) {
+  if(!req.session.userId) {
+    const error = 'Harap login terlebih dahulu'
+    res.redirect(`/login?error=${error}`)
+  } else {
+    next()
+  }
+  console.log(req.session, '<------ Session');
+})
+
+app.get('/', Controller.showAllProfilePosts)
 
 //daftar semua tags
 app.get('/tags', Controller.showAllTag)
