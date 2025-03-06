@@ -10,16 +10,12 @@ app.set('view engine', 'ejs')
 // homepage jika sudah login
 // urutkan postingan dari yg paling baru (belum urut)
 app.get('/', Controller.showAllProfilePosts)
-app.get('/testing', UserController.showAllUser)
+// app.get('/testing', UserController.showAllUser)
 
 // jika user belum login
 //redirect ke homepage
-app.get('/login', (req, res) => {
-    res.send('Hello World!')
-  })
-app.post('/login', (req, res) => {
-    res.send('Hello World!')
-  })
+app.get('/login', UserController.loginForm)
+app.post('/login', UserController.postLogin)
 //jika user belum punya akun
 //redirect ke halaman login
 app.get('/register', UserController.registerForm)

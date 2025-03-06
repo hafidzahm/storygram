@@ -28,12 +28,28 @@ class UserController {
         }
     }
 
-    static async showAllUser(req,res) {
+    // static async showAllUser(req,res) {
+    //     try {
+    //        let data = await User.findAll({
+    //         include: 'Profile'
+    //        })
+    //        res.json(data)
+    //     } catch (error) {
+    //         res.send(error)
+    //     }
+    // }//testing
+
+    static loginForm(req, res) {
         try {
-           let data = await User.findAll({
-            include: 'Profile'
-           })
-           res.json(data)
+            res.render('login')
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async postLogin(req, res) {
+        try {
+           console.log(req.body); 
         } catch (error) {
             res.send(error)
         }
