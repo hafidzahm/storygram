@@ -192,7 +192,7 @@ static async showAllProfilePosts(req, res) {
       console.log(postId, "<------ postId");
       await Post.create({
         titlePost,
-        picturePost: req.file.filename,
+        picturePost: req.file.path,
         captionPost,
         ProfileId: profileId,
       });

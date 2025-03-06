@@ -6,7 +6,7 @@ const port = 3000
 const session = require('express-session')
 
 const multer = require('multer')
-
+const path = require('path')
 
 
 const fileStorage = multer.diskStorage({
