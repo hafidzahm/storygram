@@ -48,7 +48,9 @@ class UserController {
 
   static loginForm(req, res) {
     try {
-      res.render("login");
+    let {error} = req.query
+    console.log(error);
+      res.render("login", {error});
     } catch (error) {
       res.send(error);
     }

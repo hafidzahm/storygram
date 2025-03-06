@@ -14,7 +14,13 @@ class Controller {
   // tampilkan profil user dan postingan user
   static async showProfileAndPostsUser(req, res) {
     try {
+      let {userId} = req.session
       let { profileId } = req.params;
+
+      if(userId) {
+        profileId = userId
+      }
+      
       let data = await Profile.findOne({
         include: ["Posts", "User"],
         where: {
@@ -59,6 +65,10 @@ class Controller {
   static async showDetailPost(req, res) {
     try {
       let { profileId, postId } = req.params;
+      let { userId } = req.session
+      if(userId) {
+        profileId = userId
+      }
       let data = await Post.findOne({
         include: "Tags",
         where: {
@@ -78,6 +88,10 @@ class Controller {
   static async showFormAddPost(req, res) {
     try {
       let { profileId } = req.params;
+      let {userId} = req.session
+      if (userId) {
+        profileId = userId
+      }
       let tags = await Tag.findAll();
       res.render("form", { profileId, tags });
     } catch (error) {
@@ -89,7 +103,11 @@ class Controller {
   static async postAddPostAndTag(req, res) {
     try {
       let { profileId } = req.params;
-      console.log(profileId);
+      let {userId} = req.session
+      if (userId) {
+        profileId = userId
+      }
+      console.log(profileId, 'userSession');
       let { titlePost, imagePost, captionPost, tagId } = req.body;
       let postId = await Post.max("id");
       console.log(postId, "<------ postId");
@@ -115,6 +133,10 @@ class Controller {
   static async deletePost(req, res) {
     try {
       let { profileId, postId } = req.params;
+      let {userId} = req.session
+      if (userId) {
+        profileId = userId
+      }
       let data = await Post.findOne({
         where: {
           ProfileId: profileId,
@@ -140,6 +162,10 @@ class Controller {
   static async showEditForm(req, res) {
     try {
       let { profileId, postId } = req.params;
+      let {userId} = req.session
+      if (userId) {
+        profileId = userId
+      }
       let tags = await Tag.findAll();
       let data = await Post.findOne({
         include: "Tags",
@@ -163,6 +189,10 @@ class Controller {
 
       let { profileId, postId } = req.params;
       let { titlePost, imagePost, captionPost, tagId } = req.body;
+      let {userId} = req.session
+      if (userId) {
+        profileId = userId
+      }
 
       console.log(postId, "<------ postId");
       await Post.update({
