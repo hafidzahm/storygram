@@ -59,7 +59,6 @@ app.use(function (req, res, next) {
 })
 
 app.get('/', Controller.showAllProfilePosts)
-
 //daftar semua tags
 app.get('/tags', Controller.showAllTag)
 
