@@ -11,7 +11,7 @@ class UserController {
     static async postRegister(req, res) {
         try {
             console.log(req.body);
-            let userId = await User.max('id')
+            let userId = await User.max('id') //rawan bug
             let {name, username, gender, email, password, role, age} = req.body
             await User.create({
                 username, password, email, role
@@ -20,7 +20,7 @@ class UserController {
                 name, gender, age, UserId : +userId + 1
             })
 
-            res.redirect('/testing')
+            res.redirect('/login')
 
         } catch (error) {
             console.log(error);
