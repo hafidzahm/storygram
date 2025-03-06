@@ -6,6 +6,7 @@ class Controller {
       let data = await Post.showAllProfilePosts();
       console.log(data.map(el => el.toMinutesAgoFormat()),'<----------Implementasi toMinutesAgo()');
       res.json(data);
+      // res.render('landing', {data})
     } catch (error) {
       res.send(error);
     }
@@ -22,6 +23,7 @@ class Controller {
         },
       });
       res.json(data);
+      // res.render('profile', {data})
     } catch (error) {
       console.log(error);
       throw error;

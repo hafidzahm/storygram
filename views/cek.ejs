@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Edit</title>
+    <link href="https://unpkg.com/flowbite@1.4.0/dist/flowbite.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <section class="bg-gray-50 dark:bg-gray-900 h-screen">
+      <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <a href="#" class="flex flex-col items-center justify-center h-full px-6 py-8 mx-auto">
+              <img class="w-8 h-8 mr-2" src="/assets/storygram-ai.png" alt="logo">
+              StoryGram
+          </a>
+          <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
+              <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h2 class="text-2xl font-bold mb-4 text-center">Buat Postingan</h2>
+                <form method="post" action="/profiles/<%= profileId %>/posts/<%= postId %>/edit" class="max-w-sm mx-auto">
+                    <div class="mb-5">
+                      <label for="titlePost" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Title</label>
+                      <input type="text" name="titlePost" value="<%= dataPost.titlePost %>" id="titlePost" class="..." required />
+                    </div>
+                    <div class="mb-5">
+                      <label for="caption" class="block text-sm font-medium text-gray-700">Caption</label>
+                      <textarea name="captionPost" id="caption" rows="4" class="..."><%= dataPost.captionPost %></textarea>
+                    </div>
+                    <div class="mb-5">
+                      <label for="image" class="block text-sm font-medium text-gray-700">Upload Gambar</label>
+                      <input type="file" name="imagePost" id="image" class="..." accept="image/*">
+                    </div>
+                    <div class="mb-5">
+                      <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                      <select id="cars" name="tagId" class="...">
+                        <option value="">---select---</option>
+                        <% tags.forEach(el => { %>
+                          <% if (el === dataPost.Tags[0].id) { %>
+                            <option value="<%= dataPost.Tags[0].id %>" selected><%= dataPost.Tags[0].tagName %></option>
+                            <% } else { %>
+                              <option value="<%= el.id %>"><%= el.tagName %> <%= el.id %></option>
+                            <% } %>
+                          <% }) %>
+                        </select>
+                      </div>
+                      <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition duration-200">Kirim Postingan</button>
+                  </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- save add -->
+        <form method="post" action="/profiles/<%= profileId %>/add">
+            <input type=”text” name="titlePost" />
+            <input type=”text” name="imagePost" />
+            <input type=”text” name="captionPost" /></br>
+            <label for="cars">Tag</label><br/>
+            <select id="cars" name="tagId">
+              <option selected value="">Pilih tag disini</option>
+              <% tags.forEach(el => { %>
+                  <option value="<%= el.id %>"><%= el.tagName %> <%= el.id %></option>
+              <% }) %>
+            </select>
+            <button type="”submit”">Search</button>
+          </form>
+      
+      
+      </section>
+      <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.min.js"></script>
+    </body>
+  </html>
