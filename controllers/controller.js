@@ -152,14 +152,23 @@ static async showAllProfilePosts(req, res) {
   // tampilkan formulir tambah postingan
   static async showFormAddPost(req, res) {
     try {
+      let {error} = req.query
       let { profileId } = req.params;
       let {userId} = req.session
       if (userId) {
         profileId = userId
       }
+      if(error) {
+        error =  error.split(',')
+       } else {
+       error = undefined
+       }
+ 
+       console.log(error);
       let tags = await Tag.findAll();
-      res.render("form", { profileId, tags });
+      res.render("form", { profileId, tags, error });
     } catch (error) {
+      console.log(error);
       res.send(error);
     }
   }
@@ -172,13 +181,18 @@ static async showAllProfilePosts(req, res) {
       if (userId) {
         profileId = userId
       }
+      if(!req.file) {
+        const error = `Gambar harus diupload`
+        return res.redirect(`/profiles/${profileId}/add?error=${error}`)
+      }
+      // let {imagePost} = req.file.filename
       console.log(profileId, 'userSession');
-      let { titlePost, imagePost, captionPost, tagId } = req.body;
+      let { titlePost, captionPost, tagId } = req.body;
       let postId = await Post.max("id");
       console.log(postId, "<------ postId");
       await Post.create({
         titlePost,
-        picturePost: imagePost,
+        picturePost: req.file.filename,
         captionPost,
         ProfileId: profileId,
       });
@@ -189,6 +203,18 @@ static async showAllProfilePosts(req, res) {
       });
       res.redirect("/");
     } catch (error) {
+      let { profileId } = req.params;
+      let {userId} = req.session
+      if (userId) {
+        profileId = userId
+      }
+      if(error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError' || error.name === 'ValidationError') {
+        error = error.errors.map(el => {
+          return el.message
+        })
+
+        return res.redirect(`/profiles/${profileId}/add?error=${error}`)
+      }
       console.log(error);
       res.send(error);
     }
@@ -226,11 +252,17 @@ static async showAllProfilePosts(req, res) {
   // show edit form
   static async showEditForm(req, res) {
     try {
+      let {error} = req.query
       let { profileId, postId } = req.params;
       let {userId} = req.session
       if (userId) {
         profileId = userId
       }
+      if(error) {
+        error =  error.split(',')
+       } else {
+       error = undefined
+       }
       let tags = await Tag.findAll();
       let data = await Post.findOne({
         include: "Tags",
@@ -242,7 +274,7 @@ static async showAllProfilePosts(req, res) {
       let dataPost = data
       let tagPost = data.Tags
      
-      res.render('edit', {dataPost, tagPost, tags, profileId, postId})
+      res.render('edit', {dataPost, tagPost, tags, profileId, postId, error})
     } catch (error) {
       res.send(error);
     }
@@ -253,16 +285,20 @@ static async showAllProfilePosts(req, res) {
     try {
 
       let { profileId, postId } = req.params;
-      let { titlePost, imagePost, captionPost, tagId } = req.body;
+      let { titlePost, captionPost, tagId } = req.body;
       let {userId} = req.session
       if (userId) {
         profileId = userId
+      }
+      if(!req.file) {
+        const error = `Gambar harus diupload`
+        return res.redirect(`/profiles/${profileId}/posts/${postId}/edit?error=${error}`)
       }
 
       console.log(postId, "<------ postId");
       await Post.update({
         titlePost,
-        picturePost: imagePost,
+        picturePost: req.file.filename,
         captionPost
       }, {
         where: {

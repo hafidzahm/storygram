@@ -5,6 +5,27 @@ const app = express()
 const port = 3000
 const session = require('express-session')
 
+const multer = require('multer')
+
+
+
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './images')
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().getTime() + '-' + file.originalname)
+  }
+})
+
+const fileFilter = (req, file, cb) => {
+  if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
+    cb(null, true)
+  } else {
+    cb(null, false)
+  }
+}
+
 app.use(express.urlencoded({extended:true}))
 app.set('view engine', 'ejs')
 app.use(express.static('public'));
@@ -18,11 +39,20 @@ app.use(session({
      sameSite: true 
     }
 }))
+const upload = multer({storage: fileStorage})
 
 // homepage jika sudah login
 // urutkan postingan dari yg paling baru (belum urut)
-
-app.get('/testing', UserController.showAllUser)
+const auth = function (req, res, next) {
+  if(req.session.role !== 'Admin') {
+    const error = 'Harap login sebagai admin untuk melihat data'
+    res.redirect(`/login?error=${error}`)
+  } else {
+    next()
+  }
+  console.log(req.session.role, '<------ Session role');
+}
+app.get('/testing', auth, UserController.showAllUser)
 
 // belum bang ini aku mau buat di view nya pake yang tadi di html nya
 
@@ -77,6 +107,12 @@ app.get('/profiles/:profileId', Controller.showProfileAndPostsUser)
 //tambah postingan
 //redirect ke homepage ('/')
 app.get('/profiles/:profileId/add', Controller.showFormAddPost)
+app.post('/profiles/:profileId/add', upload.single('imagePost'), function (req, res, next) {
+  // req.file is the `avatar` file
+  req.body.imagePost = req.file.filename
+  // req.body will hold the text fields, if there were any
+  next()
+})
 app.post('/profiles/:profileId/add', Controller.postAddPostAndTag)
 
 //detail postingan
@@ -85,6 +121,12 @@ app.get('/profiles/:profileId/posts/:postId', Controller.showDetailPost)
 app.get('/profiles/:profileId/posts/:postId/delete', Controller.deletePost)
 //edit postingan, redirect ke /profiles/:profileId/posts/:postId/edit
 app.get('/profiles/:profileId/posts/:postId/edit', Controller.showEditForm)
+app.post('/profiles/:profileId/posts/:postId/edit', upload.single('imagePost'), function (req, res, next) {
+  // req.file is the `avatar` file
+  req.body.imagePost = req.file.filename
+  // req.body will hold the text fields, if there were any
+  next()
+})
 app.post('/profiles/:profileId/posts/:postId/edit', Controller.postEditForm)
 
 

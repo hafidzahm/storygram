@@ -72,6 +72,8 @@ class UserController {
         if (isValidPassword) {
         //case berhasil login
         req.session.userId = data.id
+        req.session.role = data.role
+        console.log(req.session.role);
           return res.redirect("/");
         } else {
           return res.redirect(`/login?error=${error}`);
