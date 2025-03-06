@@ -7,6 +7,38 @@
     <link href="https://unpkg.com/flowbite@1.4.0/dist/flowbite.min.css" rel="stylesheet" />
   </head>
   <body>
+    <form method="post" action="/login">
+      <p style="color: red;"><%= error %></p>
+      <label for="">Username</label></br>
+      <input type=”text” name="username" /></br>
+        <label for="">Password</label></br>
+      <input type="text" name="password" /></br>
+
+     
+      <button type="”submit”">Search</button>
+    </form>
+    <form method="post" action="/register">
+      <label for="">Full Name</label></br>
+      <input type=”text” name="name" /></br>
+      <label for="">Username</label></br>
+      <input type=”text” name="username" /></br>
+      <label for="">Gender</label></br>
+        <select name="gender" id="cars">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select></br>
+        <label for="">Age</label></br>
+        <input type=”text” name="age" /></br>
+        <label for="">Email</label></br>
+      <input type="email" name="email" /></br>
+        <label for="">Password</label></br>
+      <input type="text" name="password" /></br>
+        <label for="">Role</label></br>
+      <input type="text" name="role" /></br>
+
+     
+      <button type="”submit”">Search</button>
+    </form>
     <section class="bg-gray-50 dark:bg-gray-900 h-screen">
       <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a href="#" class="flex flex-col items-center justify-center h-full px-6 py-8 mx-auto">
