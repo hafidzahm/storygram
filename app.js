@@ -1,5 +1,6 @@
 const express = require('express')
 const Controller = require('./controllers/controller')
+const UserController = require('./controllers/UserController')
 const app = express()
 const port = 3000
 
@@ -9,7 +10,7 @@ app.set('view engine', 'ejs')
 // homepage jika sudah login
 // urutkan postingan dari yg paling baru (belum urut)
 app.get('/', Controller.showAllProfilePosts)
-// app.get('/testing', Controller.showAllPostTag)
+app.get('/testing', UserController.showAllUser)
 
 // jika user belum login
 //redirect ke homepage
@@ -21,12 +22,8 @@ app.post('/login', (req, res) => {
   })
 //jika user belum punya akun
 //redirect ke halaman login
-app.get('/register', (req, res) => {
-    res.send('Hello World!')
-  })
-app.post('/register', (req, res) => {
-    res.send('Hello World!')
-  })
+app.get('/register', UserController.registerForm)
+app.post('/register', UserController.postRegister)
 
 //daftar semua tags
 app.get('/tags', Controller.showAllTag)
