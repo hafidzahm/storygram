@@ -5,9 +5,12 @@ const app = express()
 const port = 3000
 const session = require('express-session')
 const multer = require('multer')
+
+
+
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'images')
+    cb(null, './images')
   },
   filename: (req, file, cb) => {
     cb(null, new Date().getTime() + '-' + file.originalname)
@@ -37,7 +40,7 @@ app.use(session({
     }
 }))
 
-app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('picturePost'))
+const upload = multer({storage: fileStorage})
 
 
 // homepage jika sudah login
@@ -100,6 +103,12 @@ app.get('/profiles/:profileId', Controller.showProfileAndPostsUser)
 //tambah postingan
 //redirect ke homepage ('/')
 app.get('/profiles/:profileId/add', Controller.showFormAddPost)
+app.post('/profiles/:profileId/add', upload.single('imagePost'), function (req, res, next) {
+  // req.file is the `avatar` file
+  req.body.imagePost = req.file.filename
+  // req.body will hold the text fields, if there were any
+  next()
+})
 app.post('/profiles/:profileId/add', Controller.postAddPostAndTag)
 
 //detail postingan

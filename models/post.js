@@ -50,7 +50,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     picturePost: {
-      allowNull: false,
       type: DataTypes.STRING,
       validate: {
         notEmpty: {

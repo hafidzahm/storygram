@@ -6,7 +6,7 @@
     <title>Document</title>
   </head>
   <body>
-    <form method="post" action="/profiles/<%= profileId %>/add">
+    <form method="post" action="/profiles/<%= profileId %>/add" enctype="multipart/form-data">
       <label for="">Judul Post</label></br>
       <input type=”text” name="titlePost" /></br>
       <p style="color: red;">

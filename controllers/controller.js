@@ -116,13 +116,19 @@ class Controller {
       if (userId) {
         profileId = userId
       }
+      if(!req.file) {
+        const error = `Gambar harus diupload`
+        return res.redirect(`/profiles/${profileId}/add?error=${error}`)
+      }
+      // let {imagePost} = req.file.filename
+
       console.log(profileId, 'userSession');
-      let { titlePost, imagePost, captionPost, tagId } = req.body;
+      let { titlePost, captionPost, tagId } = req.body;
       let postId = await Post.max("id");
       console.log(postId, "<------ postId");
       await Post.create({
         titlePost,
-        picturePost: imagePost,
+        picturePost: req.file.filename,
         captionPost,
         ProfileId: profileId,
       });
