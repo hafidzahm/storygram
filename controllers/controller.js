@@ -5,8 +5,8 @@ class Controller {
     try {
       let data = await Post.showAllProfilePosts();
       console.log(data.map(el => el.toMinutesAgoFormat()),'<----------Implementasi toMinutesAgo()');
-      res.json(data);
-      // res.render('landing', {data})
+      // res.json(data);
+      res.render('landing', {data})
     } catch (error) {
       res.send(error);
     }
@@ -28,8 +28,8 @@ class Controller {
           id: +profileId,
         },
       });
-      res.json(data);
-      // res.render('profile', {data})
+      // res.json(data);
+      res.render('profile', {data})
     } catch (error) {
       console.log(error);
       throw error;
@@ -40,7 +40,8 @@ class Controller {
   static async showAllTag(req, res) {
     try {
       let data = await Tag.findAll();
-      res.json(data);
+      // res.json(data);
+      res.render('allTags', {data})
     } catch (error) {
       res.send(error);
     }
