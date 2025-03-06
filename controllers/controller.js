@@ -10,6 +10,7 @@ class Controller {
       // // res.json(data);
       // res.render('landing', {data})
       const { search } = req.query;
+      let {userId} = req.session
         let data = await Post.showAllProfilePosts(); 
 
         if (search) {
@@ -20,7 +21,7 @@ class Controller {
         }
 
         console.log(data.map(el => el.toMinutesAgoFormat()), '<----------Implementasi toMinutesAgo()');
-        res.render('landing', { data }); 
+        res.render('landing', { data, userId }); 
     } catch (error) {
       res.send(error);
     }
