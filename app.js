@@ -109,7 +109,7 @@ app.get('/profiles/:profileId', Controller.showProfileAndPostsUser)
 app.get('/profiles/:profileId/add', Controller.showFormAddPost)
 app.post('/profiles/:profileId/add', upload.single('imagePost'), function (req, res, next) {
   // req.file is the `avatar` file
-  req.body.imagePost = req.file.filename
+  // req.body.imagePost = req.file.filename
   // req.body will hold the text fields, if there were any
   next()
 })
@@ -123,7 +123,7 @@ app.get('/profiles/:profileId/posts/:postId/delete', Controller.deletePost)
 app.get('/profiles/:profileId/posts/:postId/edit', Controller.showEditForm)
 app.post('/profiles/:profileId/posts/:postId/edit', upload.single('imagePost'), function (req, res, next) {
   // req.file is the `avatar` file
-  req.body.imagePost = req.file.filename
+  // req.body.imagePost = req.file.filename
   // req.body will hold the text fields, if there were any
   next()
 })

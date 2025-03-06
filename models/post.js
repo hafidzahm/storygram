@@ -67,6 +67,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     picturePost: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         notEmpty: {
           msg: `Gambar harus diupload!`
