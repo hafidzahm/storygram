@@ -10,13 +10,29 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
+    // toMinutesAgoFormat() {
+    //   const date = new Date(this.createdAt)
+    //   const now = new Date();
+    //   const diffInMs = now - date;
+    //   const minutesAgo = Math.floor(diffInMs / (1000 * 60));
+    //   return `${minutesAgo} minutes ago`;
+    // }
+    // versi gue
     toMinutesAgoFormat() {
-      const date = new Date(this.createdAt)
+      const date = new Date(this.createdAt);
       const now = new Date();
       const diffInMs = now - date;
       const minutesAgo = Math.floor(diffInMs / (1000 * 60));
-      return `${minutesAgo} minutes ago`;
-    }
+      
+      const hoursAgo = Math.floor(minutesAgo / 60);
+      const remainingMinutes = minutesAgo % 60;
+  
+      if (hoursAgo > 0) {
+          return `${hoursAgo} hour${hoursAgo > 1 ? 's' : ''} ${remainingMinutes} minute${remainingMinutes !== 1 ? 's' : ''} ago`;
+      } else {
+          return `${remainingMinutes} minute${remainingMinutes !== 1 ? 's' : ''} ago`;
+      }
+  }
     
     static associate(models) {
       // define association here
