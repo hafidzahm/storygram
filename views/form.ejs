@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form method="post" action="/profiles/<%= profileId %>/add">
+      <input type=”text” name="titlePost" />
+      <input type=”text” name="imagePost" />
+      <input type=”text” name="captionPost" /></br>
+      <label for="cars">Tag</label><br/>
+      <select id="cars" name="tagId">
+        <option selected value="">Pilih tag disini</option>
+        <% tags.forEach(el => { %>
+            <option value="<%= el.id %>"><%= el.tagName %> <%= el.id %></option>
+        <% }) %>
+      </select>
+      <button type="”submit”">Search</button>
+    </form>
+  </body>
+</html>

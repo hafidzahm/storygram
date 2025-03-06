@@ -13,14 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Post.belongsTo(models.Profile, {foreignKey: 'ProfileId'})
       Post.belongsToMany(models.Tag, {
-        through: 'PostTags'
+        through: 'PostTags',
+        onDelete: 'CASCADE'
       })
     }
 
     static async showAllProfilePosts() {
       try {
         let data = await Post.findAll({
-          include: 'Profile'
+          include: ['Profile', 'Tags']
         })
         return data
       } catch (error) {
