@@ -4,6 +4,7 @@ class Controller {
   static async showAllProfilePosts(req, res) {
     try {
       let data = await Post.showAllProfilePosts();
+      console.log(data.map(el => el.toMinutesAgoFormat()),'<----------Implementasi toMinutesAgo()');
       res.json(data);
     } catch (error) {
       res.send(error);

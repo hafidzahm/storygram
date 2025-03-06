@@ -9,6 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    toMinutesAgoFormat() {
+      const date = new Date(this.createdAt)
+      const now = new Date();
+      const diffInMs = now - date;
+      const minutesAgo = Math.floor(diffInMs / (1000 * 60));
+      return `${minutesAgo} minutes ago`;
+    }
+    
     static associate(models) {
       // define association here
       Post.belongsTo(models.Profile, {foreignKey: 'ProfileId'})
