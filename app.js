@@ -47,6 +47,7 @@ const auth = function (req, res, next) {
   if(req.session.role !== 'Admin') {
     const error = 'Harap login sebagai admin untuk melihat data'
     res.redirect(`/login?error=${error}`)
+    
   } else {
     next()
   }

@@ -44,14 +44,26 @@
         <div class="mb-5"></div>
   <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
   <select id="cars" name="tagId" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+    
     <% tags.forEach(el => { %>
 
-      <% if (el === dataPost.Tags[0].id) { %>
-        <option value="<%= dataPost.Tags[0].id %>" selected><%= dataPost.Tags[0].tagName %></option>
-      <% } else { %>
-        <option value="<%= el.id %>"><%= el.tagName %> <%= el.id %></option>
+<% if (dataPost.Tags.length > 0) { %>
+ 
+  <% if (el.id === dataPost.Tags[0].id) { %>
+        
+    <option value="<%= dataPost.Tags[0].id %>" selected><%= dataPost.Tags[0].tagName %></option>
+  <% } else { %>
+    <option value="<%= el.id %>"><%= el.tagName %></option>
 
-        <% } %>
+    <% } %>
+
+<% } else { %>
+  <option value="" selected>Anda tidak memasukan tag</option>
+  <option value="<%= el.id %>"><%= el.tagName %></option>
+  <% } %>
+      
+
     <% }) %>
   </select>
         

@@ -272,7 +272,11 @@ static async showAllProfilePosts(req, res) {
         },
       });
       let dataPost = data
-      let tagPost = data.Tags
+      let tagPost = data.Tags.id
+      console.log(tags.map(el => {
+        return el.dataValues
+      }), '<-------------- id');
+      console.log(data.Tags, 'dataTags')
      
       res.render('edit', {dataPost, tagPost, tags, profileId, postId, error})
     } catch (error) {
