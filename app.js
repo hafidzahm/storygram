@@ -10,7 +10,7 @@ app.set('view engine', 'ejs')
 // homepage jika sudah login
 // urutkan postingan dari yg paling baru (belum urut)
 app.get('/', Controller.showAllProfilePosts)
-// app.get('/testing', UserController.showAllUser)
+app.get('/testing', UserController.showAllUser)
 
 // jika user belum login
 //redirect ke homepage

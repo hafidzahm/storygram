@@ -1,4 +1,5 @@
 const {User, Profile} = require('../models')
+const bcrypt = require('bcryptjs')
 class UserController {
     static registerForm(req, res) {
         try {
@@ -28,16 +29,17 @@ class UserController {
         }
     }
 
-    // static async showAllUser(req,res) {
-    //     try {
-    //        let data = await User.findAll({
-    //         include: 'Profile'
-    //        })
-    //        res.json(data)
-    //     } catch (error) {
-    //         res.send(error)
-    //     }
-    // }//testing
+    static async showAllUser(req,res) {
+        try {
+           let data = await User.findAll({
+            include: 'Profile'
+           })
+           res.json(data)
+        } catch (error) {
+            res.send(error)
+        }
+    } 
+    //testing
 
     static loginForm(req, res) {
         try {
@@ -49,7 +51,27 @@ class UserController {
 
     static async postLogin(req, res) {
         try {
-           console.log(req.body); 
+           console.log(req.body);
+           let {username, password} = req.body
+           let data = await User.findOne({
+            where: {
+                username
+            }
+           })
+
+           if (data) {
+            const isValidPassword = bcrypt.compareSync(password, data.password)
+            console.log(isValidPassword);
+            if (isValidPassword) {
+                return res.redirect('/')
+            } else {
+                let error = 'Username atau password salah'
+                return res.redirect(`/login?error=${error}`)
+            }
+           }
+
+           res.json(data)
+
         } catch (error) {
             res.send(error)
         }
