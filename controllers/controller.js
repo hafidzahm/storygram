@@ -2,30 +2,76 @@ const { Tag, Post, Profile, User, PostTag } = require("../models");
 const {Op} = require('sequelize')
 class Controller {
   // tampilkan semua postingan dari semua user di homepage
-  static async showAllProfilePosts(req, res) {
-    try {
-      // const { search } = req.query;
-      // let data = await Post.showAllProfilePosts();
-      // console.log(data.map(el => el.toMinutesAgoFormat()),'<----------Implementasi toMinutesAgo()');
-      // // res.json(data);
-      // res.render('landing', {data})
-      const { search } = req.query;
-      let {userId} = req.session
-        let data = await Post.showAllProfilePosts(); 
+  // static async showAllProfilePosts(req, res) {
+  //   try {
+  //     // const { search } = req.query;
+  //     // let data = await Post.showAllProfilePosts();
+  //     // console.log(data.map(el => el.toMinutesAgoFormat()),'<----------Implementasi toMinutesAgo()');
+  //     // // res.json(data);
+  //     // res.render('landing', {data})
+  //     const { search } = req.query;
 
-        if (search) {
-            data = data.filter(post => 
-                post.titlePost.toLowerCase().includes(search.toLowerCase()) ||
-                post.captionPost.toLowerCase().includes(search.toLowerCase()) 
-            );
+
+  //     // if (title) {
+  //     //   option.where.name = {
+  //     //     [Op.iLike]: `%${title}%`
+  //     //   };
+  //     // }
+  //     let {userId} = req.session
+  //       let data = await Post.showAllProfilePosts(); 
+
+  //       if (search) {
+  //           data = data.filter(post => 
+  //               post.titlePost.toLowerCase().includes(search.toLowerCase()) ||
+  //               post.captionPost.toLowerCase().includes(search.toLowerCase()) 
+  //           );
+  //       }
+
+  //       console.log(data.map(el => el.toMinutesAgoFormat()), '<----------Implementasi toMinutesAgo()');
+  //       res.render('landing', { data, userId }); 
+  //   } catch (error) {
+  //     res.send(error);
+  //   }
+  // }
+
+static async showAllProfilePosts(req, res) {
+    try {
+        const { search } = req.query;
+        let { userId } = req.session;
+
+        const whereCondition = search ? {
+            [Op.or]: [
+                { titlePost: { [Op.iLike]: `%${search}%` } },
+                { captionPost: { [Op.iLike]: `%${search}%` } }
+            ]
+        } : {};
+        let data = await Post.findAll({
+            where: whereCondition,
+            include: [
+                {
+                    model: Profile, 
+                    attributes: ['name'] 
+                },
+                {
+                    model: Tag, 
+                    attributes: ['tagName'], 
+                    through: { attributes: [] }
+                }
+            ],
+        });
+
+        console.log(data, '<----------Data dari database');
+
+        if (data.length === 0) {
+            console.log('Tidak ada data yang ditemukan.');
         }
 
-        console.log(data.map(el => el.toMinutesAgoFormat()), '<----------Implementasi toMinutesAgo()');
-        res.render('landing', { data, userId }); 
+        res.render('landing', { data, userId });
     } catch (error) {
-      res.send(error);
+        console.error(error);
+        res.send(error);
     }
-  }
+}
 
   // tampilkan profil user dan postingan user
   static async showProfileAndPostsUser(req, res) {
