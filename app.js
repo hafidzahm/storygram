@@ -22,6 +22,8 @@ const fileFilter = (req, file, cb) => {
   }
 }
 
+
+
 app.use(express.urlencoded({extended:true}))
 app.set('view engine', 'ejs')
 
@@ -40,8 +42,17 @@ app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('picturePo
 
 // homepage jika sudah login
 // urutkan postingan dari yg paling baru (belum urut)
+const auth = function (req, res, next) {
+  if(req.session.role !== 'admin') {
+    const error = 'Harap login sebagai admin untuk melihat data'
+    res.redirect(`/login?error=${error}`)
+  } else {
+    next()
+  }
+  console.log(req.session.role, '<------ Session role');
+}
 
-app.get('/testing', UserController.showAllUser)
+app.get('/testing', auth, UserController.showAllUser)
 
 // jika user belum login
 //redirect ke homepage
@@ -67,6 +78,7 @@ app.use(function (req, res, next) {
   }
   console.log(req.session, '<------ Session');
 })
+
 
 app.get('/', Controller.showAllProfilePosts)
 
