@@ -43,8 +43,6 @@ app.use(function (req, res, next) {
     const error = 'Harap login terlebih dahulu'
     res.redirect(`/login?error=${error}`)
   } else {
-    req.body.profileId = req.session.userId
-    res.redirect('/')
     next()
   }
   console.log(req.session, '<------ Session');
