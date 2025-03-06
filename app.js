@@ -117,6 +117,12 @@ app.get('/profiles/:profileId/posts/:postId', Controller.showDetailPost)
 app.get('/profiles/:profileId/posts/:postId/delete', Controller.deletePost)
 //edit postingan, redirect ke /profiles/:profileId/posts/:postId/edit
 app.get('/profiles/:profileId/posts/:postId/edit', Controller.showEditForm)
+app.post('/profiles/:profileId/posts/:postId/edit', upload.single('imagePost'), function (req, res, next) {
+  // req.file is the `avatar` file
+  req.body.imagePost = req.file.filename
+  // req.body will hold the text fields, if there were any
+  next()
+})
 app.post('/profiles/:profileId/posts/:postId/edit', Controller.postEditForm)
 
 

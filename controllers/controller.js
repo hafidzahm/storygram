@@ -223,16 +223,20 @@ class Controller {
     try {
 
       let { profileId, postId } = req.params;
-      let { titlePost, imagePost, captionPost, tagId } = req.body;
+      let { titlePost, captionPost, tagId } = req.body;
       let {userId} = req.session
       if (userId) {
         profileId = userId
+      }
+      if(!req.file) {
+        const error = `Gambar harus diupload`
+        return res.redirect(`/profiles/${profileId}/posts/${postId}/edit?error=${error}`)
       }
 
       console.log(postId, "<------ postId");
       await Post.update({
         titlePost,
-        picturePost: imagePost,
+        picturePost: req.file.filename,
         captionPost
       }, {
         where: {
