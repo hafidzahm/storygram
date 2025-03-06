@@ -68,6 +68,8 @@ class UserController {
       if (data) {
         const isValidPassword = bcrypt.compareSync(password, data.password);
         if (isValidPassword) {
+        //case berhasil login
+        req.session.userId = data.id
           return res.redirect("/");
         } else {
           return res.redirect(`/login?error=${error}`);
@@ -78,6 +80,17 @@ class UserController {
     } catch (error) {
         console.log(error);
       return res.send(error);
+    }
+  }
+
+  static async postLogout(req, res) {
+    try {
+        req.session.destroy(function(err) {
+            console.log(err, '<-------- error function logout');
+        })
+        res.redirect('/login')
+    } catch (error) {
+        res.send(error)
     }
   }
 }
