@@ -4,12 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link href="https://unpkg.com/flowbite@1.4.0/dist/flowbite.min.css" rel="stylesheet" />
   </head>
   <body>
-    <form method="post" action="/tags/add">
-      <input type=”text” name="tagName"/>
-
-      <button type="submit">Tambahkan Tag</button>
-    </form>
+    <section class="bg-gray-50 dark:bg-gray-900 h-screen">
+      <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <a href="#" class="flex flex-col items-center justify-center h-full px-6 py-8 mx-auto">
+              <img class="w-8 h-8 mr-2" src="/assets/storygram-ai.png" alt="logo">
+              StoryGram
+          </a>
+          <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+              <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+    
+    <form method="post" action="/tags/add" class="max-w-sm mx-auto">
+        <div class="mb-5">
+          <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Tags</label>
+          <input name="tagName"/ type="text" id="tags" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-xs-light" placeholder="technology" required />
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition duration-200">Add Tags</button>
+      </form>
+              </div>
+          </div>
+      </div>
+    </section>
+    <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.min.js"></script>
   </body>
 </html>
