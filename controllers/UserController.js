@@ -39,7 +39,8 @@ class UserController {
       let data = await User.findAll({
         include: "Profile",
       });
-      res.json(data);
+      // res.json(data);
+      res.render('testing', {data})
     } catch (error) {
       res.send(error);
     }

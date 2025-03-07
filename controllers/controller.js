@@ -120,7 +120,8 @@ static async showAllProfilePosts(req, res) {
         },
       });
 
-      res.json(data);
+      // res.json(data);
+      res.render('postsByTag', {data})
     } catch (error) {
       res.send(error);
     }
