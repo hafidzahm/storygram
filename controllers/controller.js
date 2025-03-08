@@ -54,8 +54,7 @@ static async showAllProfilePosts(req, res) {
                 },
                 {
                     model: Tag, 
-                    attributes: ['tagName'], 
-                    through: { attributes: [] }
+
                 }
             ],
         });
@@ -65,7 +64,7 @@ static async showAllProfilePosts(req, res) {
         if (data.length === 0) {
             console.log('Tidak ada data yang ditemukan.');
         }
-
+        // res.json(data)
         res.render('landing', { data, userId });
     } catch (error) {
         console.error(error);
@@ -102,8 +101,10 @@ static async showAllProfilePosts(req, res) {
   static async showAllTag(req, res) {
     try {
       let data = await Tag.findAll();
+      let {userId} = req.session
+      let profileId = userId
       // res.json(data);
-      res.render('allTags', {data})
+      res.render('allTags', {data, profileId})
     } catch (error) {
       res.send(error);
     }
@@ -113,6 +114,8 @@ static async showAllProfilePosts(req, res) {
   static async showAllPostByTag(req, res) {
     try {
       let { tagId } = req.params;
+      let {userId} = req.session
+      let profileId = userId
       let data = await Tag.findOne({
         include: "Posts",
         where: {
@@ -121,7 +124,7 @@ static async showAllProfilePosts(req, res) {
       });
 
       // res.json(data);
-      res.render('postsByTag', {data})
+      res.render('postsByTag', {data, profileId})
     } catch (error) {
       res.send(error);
     }
@@ -183,26 +186,28 @@ static async showAllProfilePosts(req, res) {
       if (userId) {
         profileId = userId
       }
-      if(!req.file) {
-        const error = `Gambar harus diupload`
-        return res.redirect(`/profiles/${profileId}/add?error=${error}`)
-      }
+      // if(!req.file) {
+      //   const error = `Gambar harus diupload`
+      //   return res.redirect(`/profiles/${profileId}/add?error=${error}`)
+      // }
       // let {imagePost} = req.file.filename
       console.log(profileId, 'userSession');
-      let { titlePost, captionPost, tagId } = req.body;
+      let { titlePost, captionPost, imagePost, tagId } = req.body;
       let postId = await Post.max("id");
       console.log(postId, "<------ postId");
       await Post.create({
         titlePost,
-        picturePost: req.file.name,
+        picturePost: imagePost,
         captionPost,
         ProfileId: profileId,
       });
-
-      await PostTag.create({
-        PostId: +postId + 1,
-        TagId: tagId,
-      });
+      if (tagId) {
+        await PostTag.create({
+          PostId: +postId + 1,
+          TagId: tagId,
+        });
+      }
+      
       res.redirect("/");
     } catch (error) {
       let { profileId } = req.params;
@@ -279,7 +284,6 @@ static async showAllProfilePosts(req, res) {
         return el.dataValues
       }), '<-------------- id');
       console.log(data.Tags, 'dataTags')
-     
       res.render('edit', {dataPost, tagPost, tags, profileId, postId, error})
     } catch (error) {
       res.send(error);
@@ -291,20 +295,27 @@ static async showAllProfilePosts(req, res) {
     try {
 
       let { profileId, postId } = req.params;
-      let { titlePost, captionPost, tagId } = req.body;
+      let { titlePost, captionPost, imagePost, tagId } = req.body;
+      let data = await Post.findOne({
+        include: "Tags",
+        where: {
+          id: +postId,
+          ProfileId: +profileId,
+        },
+      });
       let {userId} = req.session
       if (userId) {
         profileId = userId
       }
-      if(!req.file) {
-        const error = `Gambar harus diupload`
-        return res.redirect(`/profiles/${profileId}/posts/${postId}/edit?error=${error}`)
-      }
+      // if(!req.file) {
+      //   const error = `Gambar harus diupload`
+      //   return res.redirect(`/profiles/${profileId}/posts/${postId}/edit?error=${error}`)
+      // }
 
       console.log(postId, "<------ postId");
       await Post.update({
         titlePost,
-        picturePost: req.file.filename,
+        picturePost: imagePost,
         captionPost
       }, {
         where: {
@@ -313,13 +324,29 @@ static async showAllProfilePosts(req, res) {
         }
       });
 
-      await PostTag.update({
-        TagId: tagId,
-      }, {
-        where: {
-          PostId: postId
+      
+      if (data.Tags.length < 1 ) {
+        if (tagId) {
+          await PostTag.create({
+            PostId: postId,
+            TagId: tagId,
+          });
         }
-      });
+      } else {
+        if (tagId) {
+          await PostTag.update({
+            TagId: tagId,
+          }, {
+            where: {
+              PostId: postId
+            }
+          });
+        }
+      }
+
+     
+      
+      
       res.redirect(`/profiles/${profileId}/posts/${postId}`);
     } catch (error) {
       res.send(error)

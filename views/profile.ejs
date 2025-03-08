@@ -135,23 +135,12 @@
 <br>
 <p class="text-center text-2xl font-bold text-gray-900 dark:text-white">List Postingan Kamu</p>
 <br>
-<div class="card-container">
+<div class="card-container" style="padding-bottom: 40px;">
     <% data.Posts.forEach(post => { %>
-        <div class="card max-w-sm rounded overflow-hidden shadow-lg">
+        <div class="card max-w-sm rounded overflow-hidden shadow-lg border-2 border-gray-700">
           <a href="/profiles/<%= profileId %>/posts/<%= post.id %>" class="btn btn-primary">
-            <img class="w-full" src="<%= post.picturePost %>" alt="Sunset in the mountains">
+            <img class="w-full" src="<%= post.picturePost %>" alt="Sunset in the mountains" style="max-width: 600px; max-height: 600px; object-fit: cover;" >
                 </a>
-            <!-- <img class="w-full" src="../images/<%= post.picturePost %>" alt="<%= post.titlePost %>"> -->
-            <!-- <img class="w-full" src='/im/ages/adad.png' alt="<%= post.titlePost %>"> -->
-            <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-2"><%= post.titlePost %></div>
-                
-                <p class="text-gray-700 text-base">
-                    <%= post.captionPost %>
-                </p>
-                
-            </div>
-            <!-- < -->
         </div>
     <% }) %>
 </div>
