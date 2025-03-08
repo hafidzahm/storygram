@@ -100,11 +100,17 @@ static async showAllProfilePosts(req, res) {
   //tampilkan semua tags
   static async showAllTag(req, res) {
     try {
-      let data = await Tag.findAll();
+      let data = await Tag.findAll({
+        include: Post
+      });
       let {userId} = req.session
       let profileId = userId
+      let postLength = data.map(el => {
+        return el.Posts.length
+      })
+      
       // res.json(data);
-      res.render('allTags', {data, profileId})
+      res.render('allTags', {data, profileId, postLength})
     } catch (error) {
       res.send(error);
     }
@@ -356,7 +362,9 @@ static async showAllProfilePosts(req, res) {
   //tampilkan form tambah tag
   static async showFormAddTag(req, res) {
     try {
-      res.render('add-tag')
+      let {userId} = req.session
+      let profileId = userId
+      res.render('add-tag', {profileId})
     } catch (error) {
       res.send(error)
     }
