@@ -52,7 +52,12 @@
             <div class="flex flex-wrap justify-center" style="padding-top: 100px;">
                 <% data.forEach(tag => { %>
                     <span class="inline-block <%= postLength[tag.id - 1] > 5  ? 'bg-red-300' : 'bg-green-300' %> rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                        <a href="/tags/<%= tag.id %>" class="btn btn-primary "><%= tag.tagName %> | <%= postLength[tag.id - 1] %> postingan</a>
+                       <% if (postLength[tag.id - 1] > 0) { %>
+                        <a href="/tags/<%= tag.id %>" class="btn btn-primary"><%= tag.tagName%> | <%= postLength[tag.id - 1] %> postingan</a>
+
+                        <% } %>
+                        
+                        
                         
                     </span>             
                 <% }) %>
