@@ -138,7 +138,10 @@
 <div class="card-container">
     <% data.Posts.forEach(post => { %>
         <div class="card max-w-sm rounded overflow-hidden shadow-lg">
-            <img class="w-full" src="../images/<%= post.picturePost %>" alt="<%= post.titlePost %>">
+          <a href="/profiles/<%= profileId %>/posts/<%= post.id %>" class="btn btn-primary">
+            <img class="w-full" src="<%= post.picturePost %>" alt="Sunset in the mountains">
+                </a>
+            <!-- <img class="w-full" src="../images/<%= post.picturePost %>" alt="<%= post.titlePost %>"> -->
             <!-- <img class="w-full" src='/im/ages/adad.png' alt="<%= post.titlePost %>"> -->
             <div class="px-6 py-4">
                 <div class="font-bold text-xl mb-2"><%= post.titlePost %></div>
@@ -146,9 +149,7 @@
                 <p class="text-gray-700 text-base">
                     <%= post.captionPost %>
                 </p>
-                <a href="/profiles/<%= profileId %>/posts/<%= post.id %>" class="btn btn-primary">Detail</a>
-                <a href="/profiles/<%= profileId %>/posts/<%= post.id %>/edit" class="btn btn-primary">Edit</a>
-                <a href="/profiles/<%= profileId %>/posts/<%= post.id %>/delete" class="btn btn-primary">Hapus</a>
+                
             </div>
             <!-- < -->
         </div>

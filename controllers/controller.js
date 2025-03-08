@@ -143,7 +143,8 @@ static async showAllProfilePosts(req, res) {
         },
       });
 
-      res.json(data);
+      // res.json(data);
+      res.render('details', {data, profileId})
     } catch (error) {
       console.log(error);
       res.send(error);
